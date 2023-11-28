@@ -33,6 +33,18 @@ const plugin: EggPlugin = {
     enable: true,
     package: 'egg-cors',
   },
+  sequelize: {
+    enable: true,
+    package: 'egg-sequelize',
+  },
+  nunjucks: {
+    enable: true,
+    package: 'egg-view-nunjucks',
+  },
+  valparams: {
+    enable: true,
+    package: 'egg-valparams'
+  },
 };
 
 export default plugin;

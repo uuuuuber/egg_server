@@ -5,12 +5,18 @@ const Controller = require('egg').Controller;
 class ManagerController extends Controller {
     // 列表
     public async index(){
-        const { ctx, app } = this;
+        const { ctx } = this;
 
-        let data = await app.model.Manager.findAll();
-        await ctx.render('admin/manager/index.html', {
-            data
-        });
+        let data = await ctx.page('Manager')
+
+        if (!data.rows.length) {
+            ctx.apiFail('暂无数据', 404);
+            return;
+        };
+        ctx.apiSuccess(data);
+        // await ctx.render('admin/manager/index.html', {
+        //     data
+        // });
 
         // let data = await ctx.page('Manager')
 

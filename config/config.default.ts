@@ -57,17 +57,17 @@ export default (appInfo: EggAppInfo) => {
   config.view = {
     mapping: {
       '.html': 'nunjucks',
-    }
-  }
+    },
+  };
 
   config.valparams = {
     locale: 'zh-cn',
     throwError: true,
-  }
+  };
 
   config.crypto = {
-    secret: 'mimaoXXX@__jk'
-  }
+    secret: 'mimaoXXX@__jk',
+  };
 
   // the return config will combines to EggAppConfig
   return {

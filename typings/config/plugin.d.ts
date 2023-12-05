@@ -24,6 +24,8 @@ import '@eggjs/tegg-aop-plugin';
 import 'egg-tracer';
 import 'egg-cors';
 import 'egg-sequelize';
+import 'egg-view-nunjucks';
+import 'egg-valparams';
 import { EggPluginItem } from 'egg';
 declare module 'egg' {
   interface EggPlugin {
@@ -48,5 +50,7 @@ declare module 'egg' {
     tracer?: EggPluginItem;
     cors?: EggPluginItem;
     sequelize?: EggPluginItem;
+    nunjucks?: EggPluginItem;
+    valparams?: EggPluginItem;
   }
 }

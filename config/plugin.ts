@@ -43,7 +43,7 @@ const plugin: EggPlugin = {
   },
   valparams: {
     enable: true,
-    package: 'egg-valparams'
+    package: 'egg-valparams',
   },
 };
 

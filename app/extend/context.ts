@@ -25,6 +25,7 @@ module.exports = {
     }
 
     const res = await this.app.model[modelName].findAndCountAll({
+      attributes: { exclude: [ 'password' ] },
       where,
       offset,
       limit,

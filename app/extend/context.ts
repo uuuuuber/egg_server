@@ -3,12 +3,12 @@ interface options {
 }
 module.exports = {
   // 成功提示
-  apiSuccess(data = '', msg = '成功', code = 200) {
+  apiSuccess(data = '', msg = '操作成功', code = 200) {
     this.body = { msg, result: data };
     this.status = code;
   },
   // 失败提示
-  apiFail(data = '', msg = '失败', code = 400) {
+  apiFail(data = '', msg = '操作失败', code = 400) {
     this.body = { msg, data };
     this.status = code;
   },

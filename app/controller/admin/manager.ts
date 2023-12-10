@@ -141,4 +141,4 @@ class ManagerController extends Controller {
   }
 }
 
-module.exports = ManagerController;
+export default ManagerController;

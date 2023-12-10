@@ -1,5 +1,5 @@
 import { IApp } from 'app/extend/application';
-import crypto from 'crypto';
+import * as crypto from 'crypto';
 import { Model, ModelCtor } from 'sequelize';
 export interface IManager extends ModelCtor<Model<any, any>> {
   id: number;

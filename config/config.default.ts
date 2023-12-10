@@ -8,7 +8,7 @@ export default (appInfo: EggAppInfo) => {
   config.keys = appInfo.name + '_1700456188801_6301';
 
   // add your egg config in here
-  config.middleware = [ 'errorHandler' ];
+  config.middleware = [ 'errorHandler', 'auth' ];
 
   // add your special config in here
   const bizConfig = {
@@ -26,6 +26,7 @@ export default (appInfo: EggAppInfo) => {
   // 允许跨域的方法
   config.cors = {
     origin: '*',
+    credentials: true, // 允许携带凭据
     allowMethods: 'GET, PUT, POST, DELETE, PATCH',
   };
 
@@ -67,6 +68,19 @@ export default (appInfo: EggAppInfo) => {
 
   config.crypto = {
     secret: 'mimaoXXX@__jk',
+  };
+
+  config.session = {
+    // 在有些场景下，我们希望用户如果长时间都在访问我们的站点，则延长他们的 Session 有效期，不让用户退出登录态
+    renew: true,
+    // key 代表了存储 Session 的 Cookie 键值对的 key 是什么
+    key: 'user_token',
+    // 最长保存时间（毫秒）
+    maxAge: 24 * 3600 * 1000 * 1, // 1 天
+    // 设置键值对是否可以被 js 访问，默认为 true，不允许被 js 访问。
+    httpOnly: true,
+    // 加密
+    encrypt: true,
   };
 
   // the return config will combines to EggAppConfig

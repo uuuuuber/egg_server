@@ -45,7 +45,10 @@ class ManagerController extends Controller {
       username, password,
     });
 
-    ctx.apiSuccess(manager);
+    const data = JSON.parse(JSON.stringify(manager));
+    delete data.password;
+
+    ctx.apiSuccess(data);
   }
   // 删除
   async delete() {

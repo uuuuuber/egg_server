@@ -19,4 +19,11 @@ export default (app: Application) => {
   router.post('/admin/manager/save', controller.admin.manager.save); // 新增
   router.post('/admin/manager/:id', controller.admin.manager.update); // 更新
   router.get('/admin/manager/delete/:id', controller.admin.manager.delete); // 删除
+
+  // 用户路由
+  router.get('/admin/user', controller.admin.user.index); // 获取列表
+  router.post('/admin/user/save', controller.admin.user.save); // 新增
+  router.get('/admin/user/edit/:id', controller.admin.user.edit); // 编辑
+  router.post('/admin/user/:id', controller.admin.user.update); // 更新
+  router.get('/admin/user/delete/:id', controller.admin.user.delete);
 };

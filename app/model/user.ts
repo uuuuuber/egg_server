@@ -1,4 +1,5 @@
 import { IApp } from 'app/extend/application';
+import * as crypto from 'crypto';
 export default (app: IApp) => {
   const { INTEGER, STRING, DATE } = app.Sequelize;
   const User = app.model.define('user', {
@@ -21,6 +22,12 @@ export default (app: IApp) => {
       allowNull: false,
       defaultValue: '',
       comment: '密码',
+      set(val: string) {
+        const hmac = crypto.createHash('sha256', app.config.crypto.secret);
+        hmac.update(val);
+        const hash = hmac.digest('hex');
+        this.setDataValue('password', hash);
+      },
     },
     avatar: {
       type: STRING,

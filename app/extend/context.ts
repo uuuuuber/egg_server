@@ -48,12 +48,12 @@ module.exports = {
   },
 
   // 删除提示
-  toast(msg, type = 'danger') {
-    this.cookies.set('toast', JSON.stringify({
-      msg, type,
-    }), {
-      maxAge: 1500,
-      encrypt: true,
-    });
-  },
+//   toast(msg, type = 'danger') {
+//     this.cookies.set('toast', JSON.stringify({
+//       msg, type,
+//     }), {
+//       maxAge: 1500,
+//       encrypt: true,
+//     });
+//   },
 };

@@ -72,6 +72,14 @@ class HomeController extends Controller {
     }
     return true;
   }
+
+  // 退出登录
+  async logout() {
+    const { ctx } = this;
+    // 清除session
+    ctx.session.auth = null;
+    ctx.apiSuccess('退出成功');
+  }
 }
 
 export default HomeController;

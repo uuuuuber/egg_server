@@ -12,6 +12,7 @@ export default (app: Application) => {
   // 登陆注册路由
   router.get('/admin/login', controller.admin.home.login);
   router.post('/admin/loginevent', controller.admin.home.loginevent);
+  router.get('/admin/logout', controller.admin.home.logout);
 
   // 管理员路由
   router.get('/admin/manager', controller.admin.manager.index); // 获取列表

@@ -12,7 +12,6 @@ logs/
 *.js
 .eslintcache
 
-app/**/*.js
 test/**/*.js
 config/**/*.js
 app/**/*.map

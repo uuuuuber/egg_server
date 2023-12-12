@@ -83,6 +83,14 @@ export default (appInfo: EggAppInfo) => {
     encrypt: true,
   };
 
+  // 权限不验证的路由
+  config.auth = {
+    ignore: [
+      '/admin/login',
+      '/admin/loginevent',
+    ],
+  };
+
   // the return config will combines to EggAppConfig
   return {
     ...config,

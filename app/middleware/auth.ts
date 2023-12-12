@@ -2,22 +2,19 @@ import jwt from 'jsonwebtoken';
 
 module.exports = () => {
   function verifyToken(token) {
-    const secretKey = 'mimaoXXX@__jk'; // 你的密钥，用于签名和验证 token
-    jwt.verify(token, secretKey, (err,res) => {
-      if (err) {
-        return false;
-      }
-      console.log(res);
-    });
-    return true;
+    try {
+      const secretKey = 'mimaoXXX@__jk';
+      const decoded = jwt.verify(token, secretKey);
+      console.log(decoded); // { username: 'tjh', iat: 1702347193, exp: 1702347253 }
+      return true;
+    } catch (error) {
+      console.error(`${error}`);
+      return false;
+    }
   }
   return async function authMiddleware(ctx, next) {
-    if (`${ctx.path}` === '/admin/loginevent') {
-      await next();
-      return;
-    }
     const token = ctx.cookies.get('user_token', { signed: false }); // 从 cookie 中获取 token
-    console.log(token);
+    // console.log(token);
 
     if (!token) {
       ctx.throw(401, '未提供有效的身份验证令牌');

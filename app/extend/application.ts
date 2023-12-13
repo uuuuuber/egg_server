@@ -1,7 +1,3 @@
-import { Application } from 'egg';
-export interface IApp extends Application {
-  formatTime(time: Date): string;
-}
 module.exports = {
   formatTime(time: Date): string {
     const d = new Date(time);

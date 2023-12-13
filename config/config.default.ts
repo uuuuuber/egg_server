@@ -91,6 +91,8 @@ export default (appInfo: EggAppInfo) => {
     ],
   };
 
+  config.webUrl = 'http://127.0.0.1:7001/';
+
   // the return config will combines to EggAppConfig
   return {
     ...config,

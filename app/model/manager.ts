@@ -1,18 +1,7 @@
-import { IApp } from 'app/extend/application';
 import * as crypto from 'crypto';
-import { Model, ModelCtor } from 'sequelize';
-export interface IManager extends ModelCtor<Model<any, any>> {
-  id: number;
-  username: string;
-  password: string;
-  created_time: Date;
-  updated_time: Date;
+import { Application } from 'typings/app';
 
-  index(): Promise<void>;
-  // create(): any
-  save(): Promise<void>;
-}
-export default (app: IApp) => {
+export default (app: Application) => {
   const { INTEGER, STRING, DATE } = app.Sequelize;
 
   const Manager = app.model.define('manager', {
@@ -49,6 +38,6 @@ export default (app: IApp) => {
       },
     },
     updated_time: DATE,
-  }) as IManager;
+  });
   return Manager;
 };

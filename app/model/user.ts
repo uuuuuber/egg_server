@@ -1,6 +1,6 @@
-import { IApp } from 'app/extend/application';
 import * as crypto from 'crypto';
-export default (app: IApp) => {
+import { Application } from 'typings/app';
+export default (app: Application) => {
   const { INTEGER, STRING, DATE } = app.Sequelize;
   const User = app.model.define('user', {
     id: {

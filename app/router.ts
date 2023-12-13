@@ -25,5 +25,23 @@ export default (app: Application) => {
   router.post('/admin/user/save', controller.admin.user.save); // 新增
   router.get('/admin/user/edit/:id', controller.admin.user.edit); // 编辑
   router.post('/admin/user/:id', controller.admin.user.update); // 更新
-  router.get('/admin/user/delete/:id', controller.admin.user.delete);
+  router.get('/admin/user/delete/:id', controller.admin.user.delete);// 删除
+
+  // 礼物路由
+  router.get('/admin/gift', controller.admin.gift.index);// 获取列表
+  router.post('/admin/gift', controller.admin.gift.save); // 新增
+  router.get('/admin/gift/edit/:id', controller.admin.gift.edit); // 编辑
+  router.post('/admin/gift/:id', controller.admin.gift.update); // 更新
+  router.get('/admin/gift/delete/:id', controller.admin.gift.delete); // 删除
+
+  // 直播间
+  router.get('/admin/live', controller.admin.live.index);// 获取直播间列表
+  router.get('/admin/live/look/:id', controller.admin.live.look); // 直播间观看情况
+  router.get('/admin/live/gift/:id', controller.admin.live.gift); // 直播间礼物情况
+  router.get('/admin/live/comment/:id', controller.admin.live.comment); // 直播间评论情况
+  router.get('/admin/live/close/:id', controller.admin.live.close); // 关闭直播间
+
+  // 订单
+  router.get('/admin/order', controller.admin.order.index); // 获取订单列表
+
 };

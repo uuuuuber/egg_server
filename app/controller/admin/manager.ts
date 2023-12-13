@@ -1,5 +1,4 @@
 'use strict';
-import { IManager } from 'app/model/manager';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const Controller = require('egg').Controller;
 class ManagerController extends Controller {
@@ -87,7 +86,7 @@ class ManagerController extends Controller {
   // }
 
   // 更新逻辑
-  async update() {
+  async update(this) {
     const { ctx, app } = this;
 
     ctx.validate({
@@ -114,7 +113,7 @@ class ManagerController extends Controller {
       where: {
         id,
       },
-    }) as unknown as IManager;
+    });
     if (!manager) {
       return ctx.apiFail('该记录不存在');
     }

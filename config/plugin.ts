@@ -45,6 +45,20 @@ const plugin: EggPlugin = {
     enable: true,
     package: 'egg-valparams',
   },
+  tenpay: {
+    enable: true,
+    package: 'egg-tenpay',
+  },
+  // 用户
+  jwt: {
+    enable: true,
+    package: 'egg-jwt',
+  },
+
+  redis: {
+    enable: true,
+    package: 'egg-redis',
+  },
 };
 
 export default plugin;

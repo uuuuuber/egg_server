@@ -88,10 +88,74 @@ export default (appInfo: EggAppInfo) => {
     ignore: [
       '/admin/login',
       '/admin/loginevent',
+      '/api/reg',
+      '/api/login',
     ],
   };
 
-  config.webUrl = 'http://127.0.0.1:7001/';
+  // 微信支付
+  config.webUrl = 'http://127.0.0.1:7001';
+  config.tenpay = {
+    client: {
+      appid: 'wxc559eade7d0a3bde',
+      mchid: '1554108981',
+      partnerKey: '8b07811ec793049f1c97793464c7049f',
+      notify_url: config.webUrl + '/api/gift/notify',
+      // sandbox: true
+    },
+  };
+
+  config.multipart = {
+    fileSize: '50mb',
+    mode: 'stream',
+    fileExtensions: [
+      '.xls',
+      '.txt',
+      '.jpg',
+      '.JPG',
+      '.png',
+      '.PNG',
+      '.gif',
+      '.GIF',
+      '.jpeg',
+      '.JPEG',
+    ], // 扩展几种上传的文件格式
+  };
+
+  // 用户密钥
+  config.jwt = {
+    secret: 'qhdgw@45ncashdaksh2!#@3nxjdas*_672',
+  };
+
+  // redis存储
+  // config.redis = {
+  //   client: {
+  //     port: 6379, // Redis port
+  //     host: '127.0.0.1', // Redis host
+  //     password: '',
+  //     db: 2,
+  //   },
+  // };
+
+  // 流媒体配置
+  config.mediaServer = {
+    rtmp: {
+      port: 23480,
+      chunk_size: 60000,
+      gop_cache: true,
+      ping: 30,
+      ping_timeout: 60,
+    },
+    http: {
+      port: 23481,
+      allow_origin: '*',
+    },
+    auth: {
+      play: true,
+      publish: true,
+      secret: 'nodemedia2017privatekey',
+    },
+  };
 
   // the return config will combines to EggAppConfig
   return {

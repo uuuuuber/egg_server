@@ -8,5 +8,7 @@ type ExtendApplicationType = typeof ExtendApplication;
 declare module 'egg' {
   interface Application extends ExtendApplicationType { 
     formatTime(time: Date): string;
+
+    nms: any;
   }
 }

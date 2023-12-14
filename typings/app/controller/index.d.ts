@@ -9,6 +9,11 @@ import ExportAdminUser from '../../../app/controller/admin/user';
 import ExportAdminGift from '../../../app/controller/admin/gift';
 import ExportAdminLive from '../../../app/controller/admin/live';
 import ExportOrder from '../../../app/controller/admin/order';
+import ExportCommon from '../../../app/controller/admin/common';
+
+import ExportGift from '../../../app/controller/api/gift';
+import ExportUser from '../../../app/controller/api/user';
+import ExportLive from '../../../app/controller/api/live';
 
 declare module 'egg' {
   interface IController {
@@ -19,6 +24,12 @@ declare module 'egg' {
       gift: ExportAdminGift;
       live: ExportAdminLive;
       order: ExportOrder;
+      common: ExportCommon;
+    },
+    api: {
+      gift: ExportGift;
+      user: ExportUser;
+      live: ExportLive;
     }
   }
 }

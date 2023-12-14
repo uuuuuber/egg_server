@@ -43,5 +43,24 @@ export default (app: Application) => {
 
   // 订单
   router.get('/admin/order', controller.admin.order.index); // 获取订单列表
+  router.post('/admin/upload', controller.admin.common.upload); // 上传图片
 
+  // 支付
+  router.post('/api/gift/wxpay', controller.api.gift.wxpay);
+  router.post(
+    '/api/gift/notify',
+    app.middleware.tenpay('pay', app),
+    controller.api.gift.notify,
+  );
+
+  router.post('/api/reg', controller.api.user.reg); // 用户注册
+  router.post('/api/login', controller.api.user.login); // 用户登录
+  router.post('/api/logout', controller.api.user.logout); // 退出登录
+  router.get('/api/user/info', controller.api.user.info); // 获取当前用户信息
+
+
+  router.post('/api/live/create', controller.api.live.save); // 创建直播间
+  router.post('/api/live/changestatus', controller.api.live.changestatus); // 修改直播间状态
+  router.get('/api/live/list/:page', controller.api.live.list); // 直播间列表
+  router.get('/api/live/read/:id', controller.api.live.read); // 查看直播间
 };

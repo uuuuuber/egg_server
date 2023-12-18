@@ -30,9 +30,13 @@ class UserController extends Controller {
       },
       avatar: {
         type: 'string',
+        required: false,
+        desc: '头像',
       },
       coin: {
         type: 'int',
+        required: false,
+        desc: '金币',
       },
     });
     const { username, password, avatar, coin } = ctx.request.body;
@@ -59,7 +63,9 @@ class UserController extends Controller {
   async edit() {
     const { ctx, app } = this;
     const id = ctx.params.id;
-    let data = await app.model.User.findOne({
+    const { coinNum: coin } = ctx.request.body;
+
+    const data = await app.model.User.findOne({
       where: {
         id,
       },
@@ -67,11 +73,11 @@ class UserController extends Controller {
     if (!data) {
       return await ctx.pageFail('该记录不存在');
     }
-
-    // 不返回密码
-    data = JSON.parse(JSON.stringify(data));
-    delete data.password;
-    ctx.apiSuccess(data);
+    const result = await ctx.model.User.update(
+      { coin },
+      { where: { id } },
+    );
+    ctx.body = result;
   }
 
   async update() {

@@ -7,7 +7,7 @@ class ManagerController extends Controller {
     const { ctx } = this;
     const data = await ctx.page('Manager');
     if (!data.rows.length) {
-      ctx.apiFail('暂无数据', 404);
+      ctx.apiFail('暂无数据');
       return;
     }
     ctx.apiSuccess(data);
@@ -30,7 +30,7 @@ class ManagerController extends Controller {
       },
     });
 
-    const { username, password } = ctx.request.body;
+    const { username, password, mobile } = ctx.request.body;
 
     if (await app.model.Manager.findOne({
       where: {
@@ -41,7 +41,7 @@ class ManagerController extends Controller {
     }
 
     const manager = await app.model.Manager.create({
-      username, password,
+      username, password, mobile,
     });
 
     const data = JSON.parse(JSON.stringify(manager));

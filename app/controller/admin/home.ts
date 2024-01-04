@@ -40,6 +40,9 @@ class HomeController extends Controller {
       },
     });
 
+    console.log(manager);
+
+
     if (!manager) {
       ctx.throw(400, '用户不存在或已被禁用');
     }

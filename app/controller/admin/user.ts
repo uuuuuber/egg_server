@@ -8,7 +8,7 @@ class UserController extends Controller {
 
     const data = await ctx.page('User');
     if (!data.rows.length) {
-      ctx.apiFail('暂无数据', 404);
+      ctx.apiFail('暂无数据');
       return;
     }
     ctx.apiSuccess(data);
@@ -37,6 +37,7 @@ class UserController extends Controller {
         type: 'int',
         required: false,
         desc: '金币',
+        default: 0,
       },
     });
     const { username, password, avatar, coin } = ctx.request.body;

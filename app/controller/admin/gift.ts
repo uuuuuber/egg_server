@@ -6,8 +6,9 @@ class GiftController extends Controller {
   async index() {
     const { ctx } = this;
     const data = await ctx.page('Gift');
+
     if (!data.rows.length) {
-      ctx.apiFail('暂无数据', 404);
+      ctx.apiFail('暂无数据');
       return;
     }
     ctx.apiSuccess(data);
@@ -25,12 +26,17 @@ class GiftController extends Controller {
       },
       image: {
         type: 'string',
+        required: true,
+        desc: '礼物图标路径',
       },
       coin: {
         type: 'int',
+        required: true,
+        desc: '金币值',
       },
     });
     const { name, image, coin } = ctx.request.body;
+    console.log(name, image, coin);
 
     // 创建礼物
     const gift = await app.model.Gift.create({
@@ -42,21 +48,6 @@ class GiftController extends Controller {
       ctx.throw(400, '创建礼物失败');
     }
     ctx.apiSuccess(gift);
-  }
-
-  async edit() {
-    const { ctx, app } = this;
-    const id = ctx.params.id;
-    let data = await app.model.Gift.findOne({
-      where: {
-        id,
-      },
-    });
-    if (!data) {
-      return await ctx.pageFail('该记录不存在');
-    }
-    data = JSON.parse(JSON.stringify(data));
-
   }
 
   async update() {
@@ -86,7 +77,7 @@ class GiftController extends Controller {
       return ctx.apiFail('该记录不存在');
     }
 
-    const result = await ctx.model.Manager.update(
+    const result = await ctx.model.Gift.update(
       { name, image, coin },
       { where: { id } },
     );
@@ -96,12 +87,14 @@ class GiftController extends Controller {
   async delete() {
     const { ctx, app } = this;
     const id = ctx.params.id;
-    await app.model.Gift.destroy({
+    const data = await app.model.Gift.destroy({
       where: { id },
     });
-    ctx.toast('删除成功', 'success');
-
-    ctx.redirect('/admin/gift');
+    if (data) {
+      ctx.apiSuccess(data);
+    } else {
+      ctx.apiFail('不存在');
+    }
   }
 }
 

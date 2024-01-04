@@ -90,6 +90,7 @@ export default (appInfo: EggAppInfo) => {
       '/admin/loginevent',
       '/api/reg',
       '/api/login',
+      '/admin/manager/save',
     ],
   };
 
@@ -109,8 +110,6 @@ export default (appInfo: EggAppInfo) => {
     fileSize: '50mb',
     mode: 'stream',
     fileExtensions: [
-      '.xls',
-      '.txt',
       '.jpg',
       '.JPG',
       '.png',

@@ -29,8 +29,7 @@ export default (app: Application) => {
 
   // 礼物路由
   router.get('/admin/gift', controller.admin.gift.index);// 获取列表
-  router.post('/admin/gift', controller.admin.gift.save); // 新增
-  router.get('/admin/gift/edit/:id', controller.admin.gift.edit); // 编辑
+  router.post('/admin/gift/save', controller.admin.gift.save); // 新增
   router.post('/admin/gift/:id', controller.admin.gift.update); // 更新
   router.get('/admin/gift/delete/:id', controller.admin.gift.delete); // 删除
 
@@ -63,4 +62,5 @@ export default (app: Application) => {
   router.post('/api/live/changestatus', controller.api.live.changestatus); // 修改直播间状态
   router.get('/api/live/list/:page', controller.api.live.list); // 直播间列表
   router.get('/api/live/read/:id', controller.api.live.read); // 查看直播间
+  router.get("/admin/order/delete/:id", controller.admin.order.delete); // 删除
 };

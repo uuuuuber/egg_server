@@ -31,6 +31,12 @@ export default (app: Application) => {
         this.setDataValue('password', hash);
       },
     },
+    mobile: {
+      type: STRING,
+      allowNull: false,
+      defaultValue: '',
+      comment: '手机号',
+    },
     created_time: {
       type: DATE,
       get() {

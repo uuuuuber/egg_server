@@ -25,7 +25,7 @@ module.exports = (app: Application) => {
       get() {
         // const ctx = app.createAnonymousContext();
         // const { protocol, host } = ctx.request;
-        // return app.config.webUrl + this.getDataValue('image');
+        return app.config.webUrl + this.getDataValue('image');
       },
     },
     coin: {
@@ -34,7 +34,12 @@ module.exports = (app: Application) => {
       defaultValue: 0,
       comment: '金币',
     },
-    created_time: DATE,
+    created_time: {
+      type: DATE,
+      get() {
+        return app.formatTime(this.getDataValue('created_time'));
+      },
+    },
     updated_time: DATE,
   });
 

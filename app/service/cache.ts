@@ -49,7 +49,7 @@ class CacheService extends Service {
    * @param { Number } expir 过期时间 单位秒
    * @return { String } 返回成功字符串OK
    */
-  async set(key, value, expir = 0) {
+  async set(key: string, value: string | object | Array<any>, expir = 0): Promise<string> {
     const { redis } = this.app;
     if (expir === 0) {
       return await redis.set(key, JSON.stringify(value));

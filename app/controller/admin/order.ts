@@ -18,14 +18,18 @@ class OrderController extends Controller {
   async delete() {
     const { ctx, app } = this;
     const id = ctx.params.id;
-    await app.model.Order.destroy({
+    const data = await app.model.Order.destroy({
       where: {
         id,
       },
     });
-    ctx.toast('删除成功', 'success');
 
-    ctx.redirect('/admin/order');
+    if (data) {
+      ctx.apiSuccess(data);
+      return;
+    }
+    ctx.apiFail(data, '订单不存在');
+
   }
 }
 

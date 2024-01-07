@@ -40,12 +40,16 @@ module.exports = (app: Application) => {
   });
 
   // 关联关系
-  //   LiveUser.associate = function() {
-  //     // 关联用户
-  //     LiveUser.belongsTo(app.model.User);
-  //     // 关联直播间
-  //     LiveUser.belongsTo(app.model.Live);
-  //   };
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  LiveUser.associate = function() {
+    // 关联用户
+    LiveUser.belongsTo(app.model.User);
+    // 关联直播间
+    LiveUser.belongsTo(app.model.Live);
+    // 关联礼物
+    // LiveUser.belongsTo(app.model.Gift);
+  };
 
   return LiveUser;
 };

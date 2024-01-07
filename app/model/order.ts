@@ -23,7 +23,7 @@ export default (app: Application) => {
       allowNull: false,
       defaultValue: 0,
       comment: '用户id',
-      references: {
+      references: { // 外键关联
         model: 'user',
         key: 'id',
       },
@@ -48,10 +48,12 @@ export default (app: Application) => {
   });
 
   // 关联关系
-  //   Order.associate = function(models) {
-  //     // 关联主播
-  //     Order.belongsTo(app.model.User);
-  //   };
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  Order.associate = function() {
+    // 关联用户
+    Order.belongsTo(app.model.User);
+  };
 
   return Order;
 };

@@ -71,10 +71,12 @@ export default (app: Application) => {
   });
 
   // 关联关系
-  //   Live.associate = function() {
-  //     // 关联主播
-  //     Live.belongsTo(app.model.User);
-  //   };
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  Live.associate = function() {
+    // 关联主播
+    Live.belongsTo(app.model.User);
+  };
 
   return Live;
 };

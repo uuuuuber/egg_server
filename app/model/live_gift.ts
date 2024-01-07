@@ -52,14 +52,16 @@ export default (app: Application) => {
   });
 
   // 关联关系
-  //   LiveGift.associate = function(models) {
-  //     // 关联用户
-  //     LiveGift.belongsTo(app.model.User);
-  //     // 关联直播间
-  //     LiveGift.belongsTo(app.model.Live);
-  //     // 关联礼物
-  //     LiveGift.belongsTo(app.model.Gift);
-  //   };
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  LiveGift.associate = function() {
+    // 关联用户
+    LiveGift.belongsTo(app.model.User);
+    // 关联直播间
+    LiveGift.belongsTo(app.model.Live);
+    // 关联礼物
+    LiveGift.belongsTo(app.model.Gift);
+  };
 
   return LiveGift;
 };

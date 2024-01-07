@@ -46,12 +46,14 @@ export default (app: Application) => {
   });
 
   // 关联关系
-  //   Comment.associate = function(models) {
-  //     // 关联发布人
-  //     Comment.belongsTo(app.model.User);
-  //     // 关联直播间
-  //     Comment.belongsTo(app.model.Live);
-  //   };
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  Comment.associate = function() {
+    // 关联发布人
+    Comment.belongsTo(app.model.User);
+    // 关联直播间
+    Comment.belongsTo(app.model.Live);
+  };
 
   return Comment;
 };

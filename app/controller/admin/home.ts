@@ -1,5 +1,4 @@
 'use strict';
-import * as crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const Controller = require('egg').Controller;
@@ -47,7 +46,7 @@ class HomeController extends Controller {
       ctx.throw(400, '用户不存在或已被禁用');
     }
     // 验证密码
-    const res = await this.checkPassword(password, manager.password);
+    const res = await ctx.checkPassword(password, manager.password);
 
     // 记录到session中
     // const token = jwt.sign({ id: manager.id }, 'mimaoXXX@__jk', { expiresIn: '24h' });
@@ -62,18 +61,6 @@ class HomeController extends Controller {
       });
       return ctx.apiSuccess({ manager, token });
     }
-  }
-  // 验证密码
-  async checkPassword(password, hash_password) {
-    // 先对需要验证的密码进行加密
-    const hmac = crypto.createHash('sha256', this.app.config.crypto.secret);
-    hmac.update(password);
-    password = hmac.digest('hex');
-    const res = password === hash_password;
-    if (!res) {
-      this.ctx.throw(400, '密码错误');
-    }
-    return true;
   }
 
   // 退出登录

@@ -39,9 +39,11 @@ export default (app: Application) => {
   router.get('/admin/live/gift/:id', controller.admin.live.gift); // 直播间礼物情况
   router.get('/admin/live/comment/:id', controller.admin.live.comment); // 直播间评论情况
   router.get('/admin/live/close/:id', controller.admin.live.close); // 关闭直播间
+  router.get('/admin/live/delete/:id', controller.admin.live.delete); // 删除
 
   // 订单
   router.get('/admin/order', controller.admin.order.index); // 获取订单列表
+  router.get('/admin/order/delete/:id', controller.admin.order.delete);
   router.post('/admin/upload', controller.admin.common.upload); // 上传图片
 
   // 支付
@@ -62,5 +64,5 @@ export default (app: Application) => {
   router.post('/api/live/changestatus', controller.api.live.changestatus); // 修改直播间状态
   router.get('/api/live/list/:page', controller.api.live.list); // 直播间列表
   router.get('/api/live/read/:id', controller.api.live.read); // 查看直播间
-  router.get("/admin/order/delete/:id", controller.admin.order.delete); // 删除
+  router.get('/admin/order/delete/:id', controller.admin.order.delete); // 删除
 };

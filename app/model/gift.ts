@@ -1,6 +1,6 @@
 import { Application } from 'typings/app';
 
-module.exports = (app: Application) => {
+export default (app: Application) => {
   const { STRING, INTEGER, DATE } = app.Sequelize;
 
   const Gift = app.model.define('gift', {

@@ -25,15 +25,14 @@ class LiveController extends Controller {
     //   active: false,
     // }];
 
-    const where = (!ctx.query.status && ctx.query.status !== 0) ? {} : { status: ctx.query.status };
-
+    const where = (ctx.query.status === 'undefined') ? {} : { status: ctx.query.status };
     const data = await ctx.page('Live', where, {
       include: [{
         model: app.model.User,
         attributes: [ 'id', 'username' ],
       }],
     });
-    console.log(data);
+    ctx.apiSuccess(data);
 
 
     // tabs = tabs.map(item => {
@@ -53,33 +52,33 @@ class LiveController extends Controller {
     const { ctx, app } = this;
     const id = ctx.params.id;
 
-    const res = await app.model.LiveUser.findAll({
-      where: {
-        live_id: id,
-      },
+    await ctx.page('LiveUser', { live_id: id }, {
       include: [{
         model: app.model.User,
         attributes: [ 'id', 'username', 'avatar' ],
       }],
-    });
-
-    ctx.apiSuccess({
-      ths: [{
-        title: '用户名',
-        key: 'username',
-      }, {
-        title: '观看时间',
-        key: 'created_time',
-      }],
-      data: res.map(item => {
+    }).then(res => {
+      const RES = JSON.parse(JSON.stringify(res));
+      const msg = RES.msg;
+      const lookData = RES.rows.map(item => {
         return {
           id: item.id,
           username: item.user.username,
           avatar: item.user.avatar,
           created_time: app.formatTime(item.created_time),
         };
-      }),
+      });
+
+      const count = RES.count;
+      const data = {
+        msg,
+        lookData,
+        count,
+      };
+
+      ctx.apiSuccess(data);
     });
+
   }
 
   // 礼物记录
@@ -87,37 +86,18 @@ class LiveController extends Controller {
     const { ctx, app } = this;
     const id = ctx.params.id;
 
-    const res = await app.model.LiveGift.findAll({
-      where: {
-        live_id: id,
-      },
+    const res = await ctx.page('LiveGift', { live_id: id }, {
       include: [{
         model: app.model.User,
         attributes: [ 'id', 'username', 'avatar' ],
       }, {
         model: app.model.Gift,
+        attributes: [ 'name', 'image', 'coin' ],
       }],
     });
-
     ctx.apiSuccess({
-      ths: [{
-        title: '礼物名称',
-        key: 'gift_name',
-      }, {
-        title: '礼物图标',
-        key: 'gift_image',
-        type: 'image',
-      }, {
-        title: '礼物金币',
-        key: 'gift_coin',
-      }, {
-        title: '赠送者',
-        key: 'username',
-      }, {
-        title: '赠送时间',
-        key: 'created_time',
-      }],
-      data: res.map(item => {
+      count: res.count,
+      data: res.rows.map(item => {
         return {
           created_time: app.formatTime(item.created_time),
           gift_name: item.gift.name,
@@ -135,28 +115,18 @@ class LiveController extends Controller {
     const { ctx, app } = this;
     const id = ctx.params.id;
 
-    const res = await app.model.Comment.findAll({
-      where: {
-        live_id: id,
-      },
-      include: [{
-        model: app.model.User,
-        attributes: [ 'id', 'username', 'avatar' ],
-      }],
+    const res = await ctx.page('Comment', {
+      live_id: id,
+    },
+    { include: [{
+      model: app.model.User,
+      attributes: [ 'id', 'username', 'avatar' ],
+    }],
     });
 
     ctx.apiSuccess({
-      ths: [{
-        title: '内容',
-        key: 'content',
-      }, {
-        title: '发送人',
-        key: 'username',
-      }, {
-        title: '发送时间',
-        key: 'created_time',
-      }],
-      data: res.map(item => {
+      count: res.count,
+      data: res.rows.map(item => {
         return {
           content: item.content,
           created_time: app.formatTime(item.created_time),
@@ -179,15 +149,32 @@ class LiveController extends Controller {
     });
 
     if (!live) {
-      ctx.toast('该直播间不存在', 'danger');
+      ctx.apiFail('该直播间不存在');
     } else if (live.status === 3) {
-      ctx.toast('该直播间已结束', 'danger');
+      ctx.apiFail('该直播间已结束');
     } else {
       live.status = 3;
       await live.save();
-      ctx.toast('关闭成功', 'success');
+      ctx.apiSuccess('关闭成功');
     }
-    ctx.redirect('/admin/live');
+  }
+
+  // 删除直播间
+  async delete() {
+    const { ctx, app } = this;
+    const id = ctx.params.id;
+    const data = await app.model.Live.destroy({
+      where: {
+        id,
+      },
+    });
+
+    if (data) {
+      ctx.apiSuccess(data);
+      return;
+    }
+    ctx.apiFail(data, '直播间不存在');
+
   }
 }
 

@@ -17,11 +17,10 @@ class LiveClientController extends Controller {
       },
       cover: {
         type: 'string',
-        required: true,
+        required: false,
         desc: '直播间封面',
       },
     });
-
     const {
       title, cover,
     } = ctx.request.body;
@@ -144,8 +143,11 @@ class LiveClientController extends Controller {
       return ctx.apiFail('当前直播间不存在');
     }
 
+    let sign = '';
     // 生成签名
-    const sign = this.sign(live.key);
+    if (live.status !== 3) {
+      sign = this.sign(live.key);
+    }
 
     live = JSON.parse(JSON.stringify(live));
 

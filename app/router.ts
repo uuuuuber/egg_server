@@ -1,12 +1,10 @@
 'use strict';
 
-import { Application } from 'egg';
-
 /**
  * @param {Egg.Application} app - egg application
  */
-export default (app: Application) => {
-  const { router, controller } = app;
+export default (app: any) => {
+  const { router, controller, io } = app;
   // const authMiddleware = middleware.auth(); // 实例化中间件
 
   // 登陆注册路由
@@ -54,15 +52,25 @@ export default (app: Application) => {
     controller.api.gift.notify,
   );
 
+  router.get('/api/gift/list', controller.api.gift.list); // 礼物列表
+
   router.post('/api/reg', controller.api.user.reg); // 用户注册
   router.post('/api/login', controller.api.user.login); // 用户登录
   router.post('/api/logout', controller.api.user.logout); // 退出登录
   router.get('/api/user/info', controller.api.user.info); // 获取当前用户信息
+  router.post('/api/upload', controller.api.common.upload); // 上传图片
 
 
   router.post('/api/live/create', controller.api.live.save); // 创建直播间
   router.post('/api/live/changestatus', controller.api.live.changestatus); // 修改直播间状态
-  router.get('/api/live/list/:page', controller.api.live.list); // 直播间列表
+  router.get('/api/live/list', controller.api.live.list); // 直播间列表
   router.get('/api/live/read/:id', controller.api.live.read); // 查看直播间
   router.get('/admin/order/delete/:id', controller.admin.order.delete); // 删除
+
+  // io.of('/').route('test', io.controller.nsp.test);
+
+  io.of('/').route('joinLive', io.controller.nsp.joinLive);
+  io.of('/').route('leaveLive', io.controller.nsp.leaveLive);
+  io.of('/').route('comment', io.controller.nsp.comment);
+  io.of('/').route('gift', io.controller.nsp.gift);
 };

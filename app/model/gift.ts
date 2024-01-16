@@ -25,7 +25,7 @@ export default (app: Application) => {
       get() {
         // const ctx = app.createAnonymousContext();
         // const { protocol, host } = ctx.request;
-        return app.config.webUrl + this.getDataValue('image');
+        return this.getDataValue('image');
       },
     },
     coin: {

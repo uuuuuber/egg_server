@@ -90,6 +90,8 @@ class UserClientController extends Controller {
     if (!await this.service.cache.set('user_' + user.id, token)) {
       ctx.throw(400, '登录失败');
     }
+    const t = await ctx.service.cache.get('user_' + user.id);
+    console.log(token === t);
     // 返回用户信息和token
     return ctx.apiSuccess(user);
   }
@@ -109,8 +111,9 @@ class UserClientController extends Controller {
   // 获取当前用户信息
   async info() {
     const { ctx } = this;
-    const user = ctx.authUser;
-    return ctx.apiSuccess(JSON.parse(JSON.stringify(user)));
+    const user = JSON.parse(JSON.stringify(ctx.authUser));
+    delete user.password;
+    return ctx.apiSuccess(user);
   }
 }
 

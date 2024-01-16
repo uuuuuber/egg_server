@@ -7,9 +7,9 @@
     "typescript": true
   },
   "scripts": {
-    "start": "egg-scripts start --daemon --title=egg-server-egg_server",
+    "start": "egg-scripts start --daemon --title=egg-server-egg_server --sticky",
     "stop": "egg-scripts stop --title=egg-server-egg_server",
-    "dev": "egg-bin dev",
+    "dev": "egg-bin dev --sticky",
     "test-local": "egg-bin test -p",
     "test": "npm run lint -- --fix && npm run test-local",
     "cov": "egg-bin cov -p",
@@ -38,6 +38,7 @@
     "egg-redis": "^2.5.0",
     "egg-scripts": "^2.17.0",
     "egg-sequelize": "^6.0.0",
+    "egg-socket.io": "^4.1.6",
     "egg-tenpay": "^1.0.1",
     "egg-tracer": "^2.0.0",
     "egg-valparams": "^1.4.5",

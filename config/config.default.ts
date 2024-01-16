@@ -8,7 +8,7 @@ export default (appInfo: EggAppInfo) => {
   config.keys = appInfo.name + '_1700456188801_6301';
 
   // add your egg config in here
-  config.middleware = [ 'errorHandler', 'auth' ];
+  config.middleware = [ 'errorHandler', 'auth', 'userAuth' ];
 
   // add your special config in here
   const bizConfig = {
@@ -83,14 +83,32 @@ export default (appInfo: EggAppInfo) => {
     encrypt: true,
   };
 
-  // 权限不验证的路由
+  // 后台权限不验证的路由
   config.auth = {
     ignore: [
       '/admin/login',
       '/admin/loginevent',
+      '/api/*',
       '/api/reg',
       '/api/login',
       '/admin/manager/save',
+      '/api/logout',
+      '/api/live/create',
+      '/api/live/changestatus',
+      '/api/gift/wxpay',
+      '/api/user/info',
+    ],
+  };
+
+  // 客户端权限验证的路由
+  config.userAuth = {
+    match: [
+      '/api/logout',
+      '/api/live/create',
+      '/api/live/changestatus',
+      '/api/gift/wxpay',
+      '/api/user/info',
+      '/api/upload',
     ],
   };
 
@@ -153,6 +171,24 @@ export default (appInfo: EggAppInfo) => {
       play: true,
       publish: true,
       secret: 'nodemedia2017privatekey',
+    },
+  };
+
+  // io
+  config.io = {
+    init: {
+      wsEngine: 'ws',
+    },
+    namespace: {
+      '/': {
+        connectionMiddleware: [],
+        packetMiddleware: [],
+      },
+    },
+    redis: {
+      host: '127.0.0.1',
+      port: 6379,
+      db: 0,
     },
   };
 

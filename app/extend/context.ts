@@ -18,7 +18,6 @@ module.exports = {
     const page = this.query.page ? parseInt(this.query.page) : 1;
     const limit = this.query.limit ? parseInt(this.query.limit) : 10;
     const offset = (page - 1) * limit;
-
     if (!options?.order) {
       options.order = [
         [ 'id', 'DESC' ],

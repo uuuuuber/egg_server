@@ -19,6 +19,7 @@ class AppBootHook {
     // 所有的配置已经加载完毕
     // 可以用来加载应用自定义的文件，启动自定义的服务
 
+    // 启动流媒体
     if (!this.app.nms) {
       this.app.nms = new NodeMediaServer(this.app.config.mediaServer);
       this.app.nms.run();

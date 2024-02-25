@@ -13,8 +13,10 @@ module.exports = () => {
     }
   }
   return async function authMiddleware(ctx, next) {
-    const token = ctx.cookies.get('user_token', { signed: false }); // 从 cookie 中获取 token
-    // console.log(token);
+    // const token = ctx.cookies.get('user_token', { signed: false }); // 从 cookie 中获取 token
+    const token = ctx.headers.authorization;
+    // const token = ctx.header.token || ctx.query.token;
+    // console.log(111, token);
 
     if (!token) {
       ctx.throw(401, '未提供有效的身份验证令牌');

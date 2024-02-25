@@ -52,13 +52,13 @@ class HomeController extends Controller {
     // const token = jwt.sign({ id: manager.id }, 'mimaoXXX@__jk', { expiresIn: '24h' });
     if (res) {
       const token = jwt.sign({ username }, 'mimaoXXX@__jk', { expiresIn: '24h' });
-      ctx.cookies.set('user_token', token, {
-        path: '/',
-        port: '5173',
-        secure: false, // 不仅在使用 HTTPS 连接时发送 Cookie ，即需为 `https://`
-        httpOnly: true, // 禁止通过 JavaScript 访问 Cookie
-        sameSite: 'none', // 设置 SameSite 特性
-      });
+      // ctx.cookies.set('user_token', token, {
+      //   path: '/',
+      //   port: '5173',
+      //   secure: false, // 不仅在使用 HTTPS 连接时发送 Cookie ，即需为 `https://`
+      //   httpOnly: true, // 禁止通过 JavaScript 访问 Cookie
+      //   sameSite: 'none', // 设置 SameSite 特性
+      // });
       return ctx.apiSuccess({ manager, token });
     }
   }

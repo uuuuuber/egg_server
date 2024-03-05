@@ -21,7 +21,7 @@ class PayController extends Controller {
       },
     });
     const { price } = ctx.request.body;
-    console.log(price);
+
 
     // if (price < 1) {
     //   return ctx.apiFail('至少充值1元');

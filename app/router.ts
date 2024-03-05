@@ -59,7 +59,16 @@ export default (app: any) => {
   router.post('/api/logout', controller.api.user.logout); // 退出登录
   router.get('/api/user/info', controller.api.user.info); // 获取当前用户信息
   router.post('/api/upload', controller.api.common.upload); // 上传图片
+  router.post('/api/uploadGoods', controller.api.common.uploadGoods); // 上传商品图片
+  router.post('/api/becomeMerchant', controller.api.user.becomeMerchant); // 成为商家
 
+  router.get('/api/goods/list', controller.api.goods.list); // 商品列表
+  router.post('/api/goods/create', controller.api.goods.create); // 创建商品
+  router.get('/api/goods/getAnchorGoods', controller.api.goods.getAnchorGoods); // 查找主播商品
+  router.get('/api/goods/delGoods/:id', controller.api.goods.delGoods); // 下架商品
+
+  router.get('/api/orderuser/list/:id', controller.api.order.list); // 用户订单列表
+  router.post('/api/orderuser/create', controller.api.order.create); // 创建用户商品订单
 
   router.post('/api/live/create', controller.api.live.save); // 创建直播间
   router.post('/api/live/changestatus', controller.api.live.changestatus); // 修改直播间状态

@@ -115,6 +115,36 @@ class UserClientController extends Controller {
     delete user.password;
     return ctx.apiSuccess(user);
   }
+
+  // 更新用户信息
+  async becomeMerchant() {
+    const { ctx, app } = this;
+    ctx.validate({
+      id: {
+        type: 'int',
+        required: true,
+      },
+      ismerchant: {
+        type: 'int',
+      },
+    });
+    const { ismerchant, id } = ctx.request.body;
+    console.log(ismerchant, id);
+
+    const user = await app.model.User.findOne({
+      where: {
+        id,
+      },
+    });
+    if (!user) {
+      return ctx.apiFail('该记录不存在');
+    }
+    const result = await ctx.model.User.update(
+      { ismerchant },
+      { where: { id } },
+    );
+    ctx.apiSuccess(result);
+  }
 }
 
 export default UserClientController;

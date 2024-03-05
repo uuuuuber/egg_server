@@ -1,7 +1,7 @@
 import * as crypto from 'crypto';
 import { Application } from 'typings/app';
 export default (app: Application) => {
-  const { INTEGER, STRING, DATE } = app.Sequelize;
+  const { INTEGER, STRING, DATE, BOOLEAN } = app.Sequelize;
   const User = app.model.define('user', {
     id: {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -40,6 +40,12 @@ export default (app: Application) => {
       allowNull: false,
       defaultValue: 0,
       comment: '金币',
+    },
+    ismerchant: {
+      type: BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+      comment: '是否是商家',
     },
     created_time: {
       type: DATE,

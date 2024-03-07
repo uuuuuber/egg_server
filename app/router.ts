@@ -56,8 +56,9 @@ export default (app: any) => {
 
   router.post('/api/reg', controller.api.user.reg); // 用户注册
   router.post('/api/login', controller.api.user.login); // 用户登录
+  router.post('/api/updateUserInfo', controller.api.user.updateUserInfo); // 更新用户信息
   router.post('/api/logout', controller.api.user.logout); // 退出登录
-  router.get('/api/user/info', controller.api.user.info); // 获取当前用户信息
+  router.get('/api/user/info/:id', controller.api.user.info); // 获取当前用户信息
   router.post('/api/upload', controller.api.common.upload); // 上传图片
   router.post('/api/uploadGoods', controller.api.common.uploadGoods); // 上传商品图片
   router.post('/api/becomeMerchant', controller.api.user.becomeMerchant); // 成为商家
@@ -82,4 +83,5 @@ export default (app: any) => {
   io.of('/').route('leaveLive', io.controller.nsp.leaveLive);
   io.of('/').route('comment', io.controller.nsp.comment);
   io.of('/').route('gift', io.controller.nsp.gift);
+  io.of('/').route('daihuo', io.controller.nsp.daihuo);
 };

@@ -110,13 +110,23 @@ class UserClientController extends Controller {
 
   // 获取当前用户信息
   async info() {
-    const { ctx } = this;
-    const user = JSON.parse(JSON.stringify(ctx.authUser));
+    const { ctx, app } = this;
+    const id = ctx.params.id;
+    const user = await app.model.User.findOne({
+      where: {
+        id,
+      },
+    });
+
+
+    if (!user) {
+      return ctx.apiFail('该记录不存在');
+    }
     delete user.password;
     return ctx.apiSuccess(user);
   }
 
-  // 更新用户信息
+  // 成为商家
   async becomeMerchant() {
     const { ctx, app } = this;
     ctx.validate({
@@ -129,8 +139,6 @@ class UserClientController extends Controller {
       },
     });
     const { ismerchant, id } = ctx.request.body;
-    console.log(ismerchant, id);
-
     const user = await app.model.User.findOne({
       where: {
         id,
@@ -141,6 +149,45 @@ class UserClientController extends Controller {
     }
     const result = await ctx.model.User.update(
       { ismerchant },
+      { where: { id } },
+    );
+    ctx.apiSuccess(result);
+  }
+
+  // 更新用户信息
+  async updateUserInfo() {
+    const { ctx, app } = this;
+    ctx.validate({
+      id: {
+        type: 'int',
+        required: true,
+      },
+      username: {
+        type: 'string',
+        required: true,
+      },
+      avatar: {
+        type: 'string',
+        require: true,
+      },
+      password: {
+        type: 'string',
+        require: true,
+      },
+    });
+    const { username, id, avatar, password } = ctx.request.body;
+
+
+    const user = await app.model.User.findOne({
+      where: {
+        id,
+      },
+    });
+    if (!user) {
+      return ctx.apiFail('该记录不存在');
+    }
+    const result = await ctx.model.User.update(
+      { username, password, avatar },
       { where: { id } },
     );
     ctx.apiSuccess(result);

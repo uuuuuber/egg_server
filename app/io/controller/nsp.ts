@@ -318,6 +318,55 @@ class NspController extends Controller {
     });
 
   }
+
+  // 带货
+  async daihuo() {
+    const { ctx, app, service } = this;
+    const nsp = app.io.of('/');
+    // 接收参数
+    const message = ctx.args[0] || {};
+
+    // 当前连接
+    const socket = ctx.socket;
+    const id = socket.id;
+
+    const { live_id, token, good_id } = message;
+    console.log(live_id, good_id);
+
+    const user = await this.checkToken(token);
+    if (!user) {
+      return;
+    }
+
+    // 验证礼物是否存在
+    const good = await app.model.Goods.findOne({
+      where: {
+        id: good_id,
+      },
+    });
+
+    if (!good) {
+      socket.emit(id, ctx.helper.parseMsg('error', '该商品不存在'));
+      return;
+    }
+
+    // 验证当前直播间是否存在或是否处于直播中
+    const msg = await service.live.checkStatus(live_id);
+    if (msg) {
+      socket.emit(id, ctx.helper.parseMsg('error', msg));
+      return;
+    }
+
+    const room = 'live_' + live_id;
+
+    // 推送消息到直播间
+    nsp.to(room).emit('daihuo', {
+      good_id,
+      goodtitle: good.goodtitle,
+      goodcover: good.goodcover,
+
+    });
+  }
 }
 
 export default NspController;

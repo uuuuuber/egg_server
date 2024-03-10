@@ -39,9 +39,15 @@ export default (app: any) => {
   router.get('/admin/live/close/:id', controller.admin.live.close); // 关闭直播间
   router.get('/admin/live/delete/:id', controller.admin.live.delete); // 删除
 
-  // 订单
+  // 订单getGoodorderList
   router.get('/admin/order', controller.admin.order.index); // 获取订单列表
   router.get('/admin/order/delete/:id', controller.admin.order.delete);
+  router.get('/admin/order/getGoodorderList', controller.admin.order.getGoodorderList); // 获取商品订单
+  router.get('/admin/order/delGoodorder/:id', controller.admin.order.delGoodorder); // 删除商品订单
+
+  router.get('/admin/order/takeGoods', controller.admin.order.takeGoods); // 获取商品订单
+  router.get('/admin/order/delTakeGoods/:id', controller.admin.order.delTakeGoods); // 删除商品订单
+
   router.post('/admin/upload', controller.admin.common.upload); // 上传图片
 
   // 支付
